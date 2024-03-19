@@ -60,8 +60,6 @@ jobs:
             --namespace hackathon \
             --atomic \
             --timeout 5m
-       # env:
-       #   KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
 
 

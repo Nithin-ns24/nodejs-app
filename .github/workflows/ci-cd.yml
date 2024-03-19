@@ -56,7 +56,7 @@ jobs:
      
       - name: Deploy Helm Chart
         run: |
-            helm upgrade --install ${{ secrets.APPLICATION_NAME }} . \
+            helm upgrade --install ${{ secrets.APPLICATION_NAME }} nodejs-deploy \
             --namespace ${{ secrets.NAMESPACE }} \
             --kubeconfig ${{ secrets.KUBECONFIG }} \
             --atomic \

@@ -42,9 +42,11 @@ jobs:
      
       - name: Deploy Helm Chart
         run: |
-          helm --install ${{ secrets.APPLICATION }} . \
-            --namespace ${{ secrets.NAMESPACE }} \
-            --atomic 5m
+          helm upgrade --install ${secrets.APPLICATION_NAME} . \
+          --namespace ${secrets.NAMESPACE} \
+          --atomic \
+          --timeout 5m
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+
 

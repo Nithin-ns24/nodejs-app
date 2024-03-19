@@ -45,13 +45,13 @@ jobs:
         uses: medyagh/setup-minikube@master
       - name: Try the cluster !
         run: kubectl get pods -A
-      - name: Install Helm
-        uses: helm/install@v1
-        with:
-          version: 'v3.7.0'
       - name: Deploy Helm Chart
         run: |
           helm upgrade --install ${{ secrets.APPLICATION }} . \
             --namespace ${{ secrets.NAMESPACE }} \
             --atomic 5m
+      - name: Test service URLs
+        run: |
+           minikube service list
+           minikube service nodejs-world --url      
 

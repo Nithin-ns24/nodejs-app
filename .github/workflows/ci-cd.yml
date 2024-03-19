@@ -49,11 +49,13 @@ jobs:
      
       - name: Deploy Helm Chart
         run: |
+          aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.CLUSTER_NAME }}
           helm upgrade --install ${{ secrets.APPLICATION_NAME }} . \
           --namespace ${{ secrets.NAMESPACE }} \
           --atomic \
           --timeout 5m
         env:
-          KUBECONFIG_FILE: "${{ secrets.KUBECONFIG }}"
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+
 
 

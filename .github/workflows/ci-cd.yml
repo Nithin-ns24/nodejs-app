@@ -2,7 +2,7 @@ name: Build and Deploy CI/CD
 on:
   push:
     branches:
-      - ${{ secrets.BRANCH }}
+      - master
 jobs:
   build:
     name: Build and Deploy
@@ -41,6 +41,10 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Start minikube
+        uses: medyagh/setup-minikube@master
+      - name: Try the cluster !
+        run: kubectl get pods -A
       - name: Install Helm
         uses: helm/install@v1
         with:
@@ -50,6 +54,4 @@ jobs:
           helm upgrade --install ${{ secrets.APPLICATION }} . \
             --namespace ${{ secrets.NAMESPACE }} \
             --atomic 5m
-         env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
 

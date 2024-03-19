@@ -10,7 +10,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
 
-imagePullSecrets: [docker.io]
+imagePullSecrets: []
 nameOverride: nodejs-deploy
 fullnameOverride: nodejs-deploy
 

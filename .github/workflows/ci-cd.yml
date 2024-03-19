@@ -42,8 +42,8 @@ jobs:
      
       - name: Deploy Helm Chart
         run: |
-          helm upgrade --install ${secrets.APPLICATION_NAME} . \
-          --namespace ${secrets.NAMESPACE} \
+          helm upgrade --install ${{ secrets.APPLICATION_NAME }} . \
+          --namespace ${{ secrets.NAMESPACE }} \
           --atomic \
           --timeout 5m
         env:

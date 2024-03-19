@@ -6,6 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
+   "scripts": {
+    "build": "npm run webhook" 
   },
   "dependencies": {
     "express": "^4.16.1"

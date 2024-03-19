@@ -1,6 +1,6 @@
 name: Build and Deploy CI/CD 
 on:
-  push:
+  pull_request:
     branches:
       - master
 jobs:
@@ -25,10 +25,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - name: Build Artifact nodejs
-        run: |
-            npm install
-            npm run build
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest .
         env:

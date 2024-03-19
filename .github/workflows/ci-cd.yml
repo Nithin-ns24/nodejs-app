@@ -53,6 +53,12 @@ jobs:
 
       - name: update kube config
         run: aws eks update-kubeconfig --region ap-south-1 --name prom-eks
+
+      - name: kubeconfig
+        run:  cat ~/.kube/config
+
+      - name: print k8s value
+        run: echo ${{ secrets.KUBECONFIG }}
      
       - name: Deploy Helm Chart
         run: |

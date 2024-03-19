@@ -45,8 +45,6 @@ jobs:
           helm --install ${{ secrets.APPLICATION }} . \
             --namespace ${{ secrets.NAMESPACE }} \
             --atomic 5m
-      - name: Test service URLs
-        run: |
-           minikube service list
-           minikube service nodejs-world --url
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
 

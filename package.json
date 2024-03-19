@@ -5,9 +5,7 @@
   "author": "cmuth001@odu.edu",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
-   "scripts": {
-    "build": "npm run webhook" 
+    "start": "node server.js" 
   },
   "dependencies": {
     "express": "^4.16.1"

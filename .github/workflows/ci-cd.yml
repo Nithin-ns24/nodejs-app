@@ -54,7 +54,7 @@ jobs:
 
       - name: Deploy Helm Chart
         run: |
-          helm upgrade --install ${{ secrets.RELEASE }} nodejs-app-1 \
-            --namespace ${{ secrets.NAMESPACE }} \
+          helm upgrade --install nodejs-app nodejs-app-1 \
+            --namespace hackathon \
             --atomic 5m
 

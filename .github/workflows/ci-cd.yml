@@ -2,7 +2,7 @@ name: Build and Deploy CI/CD
 on:
   push:
     branches:
-      - ${{ secrets.BRANCH }}
+      - patch
 jobs:
   build:
     name: Build and Deploy

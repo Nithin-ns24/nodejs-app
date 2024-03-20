@@ -1,0 +1,29 @@
+{{- if .Values.argocd_enabled -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Values.nameOverride }}
+  namespace: argocd
+spec:
+  project: {{ .Values.argocd_project }} 
+  source:
+    repoURL: {{ .Values.argocd_repo }}
+    targetRevision: {{ .Values.argocd_branch }} 
+    path: {{ .Values.argocd_helmPath }} 
+    targetRevision: {{ .Values.argocd_branch }} 
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: {{ .Values.argocd_selfHeal }}        # By default, changes made to the live cluster will not trigger automatic trigger
+      prune: false           # By default, automatic sync will not delete the resource
+
+{{- end }}

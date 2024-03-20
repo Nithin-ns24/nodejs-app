@@ -2,7 +2,7 @@ name: Build and Deploy CI/CD
 on:
   push:
     branches:
-      - master
+      - ${{ secrets.BRANCH }}
 jobs:
   build:
     name: Build and Deploy
@@ -54,8 +54,7 @@ jobs:
 
       - name: Deploy Helm Chart
         run: |
-          helm upgrade --install nodejs-app-1 gitaction-nodejs \
-            --namespace hackathon \
-            --atomic \
-            --timeout 5m
+          helm upgrade --install ${{ secrets.RELEASE }} . \
+            --namespace ${{ secrets.NAMESPACE }} \
+            --atomic 5m
 

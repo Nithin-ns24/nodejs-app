@@ -2,7 +2,7 @@ name: Build and Deploy CI/CD
 on:
   push:
     branches:
-      - master
+      - ${{ secrets.BRANCH }}
 jobs:
   build:
     name: Build and Deploy
@@ -25,13 +25,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-          
+
       - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest .
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-
       - name: Push Docker image to Docker Hub
         run: |
           echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
@@ -39,7 +38,6 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
       - name: AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -56,10 +54,7 @@ jobs:
 
       - name: Deploy Helm Chart
         run: |
-            helm upgrade --install nodejs-app nodejs-deploy \
-            --namespace hackathon \
-            --atomic \
-            --timeout 5m
-
-
+          helm upgrade --install ${{ secrets.RELEASE }} . \
+            --namespace ${{ secrets.NAMESPACE }} \
+            --atomic 5m
 
